@@ -1,6 +1,8 @@
 package com.hope;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import com.hope.model.Person;
 import com.hope.model.Product;
@@ -25,6 +27,11 @@ public class App
         Product prod2 = new Product(2, "Trigo", 27.35);
         Product prod3 = new Product(3, "Maiz", 77.22);
         Product prod4 = new Product(4, "Soya", 45.00);
+        
+        List<Person> persons = Arrays.asList(p1, p2, p3, p4, p5);
+        List<Product> products = Arrays.asList(prod1, prod2, prod3, prod4);
+
+        
 
     }
 }
