@@ -18,7 +18,7 @@ public class App {
         Person p1 = new Person(1, "Quijote", LocalDate.of(1991, 1, 21));
         Person p2 = new Person(2, "Leroy", LocalDate.of(1999, 12, 3));
         Person p3 = new Person(3, "Tabita", LocalDate.of(2008, 4, 17));
-        Person p4 = new Person(4, "Kummi", LocalDate.of(2022, 10, 13));
+        Person p4 = new Person(4, "Kummi", LocalDate.of(2012, 10, 13));
         Person p5 = new Person(5, "Axios", LocalDate.of(1980, 12, 6));
 
         Product prod1 = new Product(1, "Cevada", 17.81);
@@ -52,9 +52,16 @@ public class App {
                 .filter(p -> App.getAge(p.getBirthDate()) >= 18 )
                 .collect(Collectors.toList());
         
-        System.out.println("\nPersonas mayores de 18 años");
-        App.printList(filteredList1);
+        //System.out.println("\nPersonas mayores de 18 años");
+        //App.printList(filteredList1);
         // SELECT * FROM PERSONA p WHERE p.edad > 18;
+
+        // 2 - Map (param: Function) - Obtengo una Lista de edades, ya no una Lista de Personas
+        List<Integer> filteredList2 =  persons.stream()
+                                        .map(p -> App.getAge(p.getBirthDate()))
+                                        .collect(Collectors.toList());
+        
+        App.printList(filteredList2);
 
     }
 
