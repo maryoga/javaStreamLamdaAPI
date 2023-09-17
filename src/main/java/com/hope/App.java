@@ -31,7 +31,11 @@ public class App
         List<Person> persons = Arrays.asList(p1, p2, p3, p4, p5);
         List<Product> products = Arrays.asList(prod1, prod2, prod3, prod4);
 
-        
+        // Lambda //method reference
+        // list.forEach(System.out::println);
+        for(int i=0; i < persons.size(); i++ ){
+            System.out.println(persons.get(i));
+        }
 
     }
 }
