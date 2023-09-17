@@ -1,8 +1,10 @@
 package com.hope;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.hope.model.Person;
 import com.hope.model.Product;
@@ -43,10 +45,25 @@ public class App {
         //persons.forEach(p -> System.out.println(p));
 
         // metodos a referencia
-        persons.forEach(System.out::println);
+        // persons.forEach(System.out::println);
 
+        // 1- Filter (param: Predicate)
+        List<Person> filteredList1 = persons.stream()
+                .filter(p -> App.getAge(p.getBirthDate()) >= 18 )
+                .collect(Collectors.toList());
+        
+        System.out.println("\nPersonas mayores de 18 años");
+        App.printList(filteredList1);
+        // SELECT * FROM PERSONA p WHERE p.edad > 18;
 
+    }
 
+    public static int getAge(LocalDate birthDate){
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
+
+    public static void printList(List<?> list){
+        list.forEach(System.out::println);
     }
 }
 
