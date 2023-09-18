@@ -3,7 +3,9 @@ package com.hope;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.hope.model.Person;
@@ -48,21 +50,47 @@ public class App {
         // persons.forEach(System.out::println);
 
         // 1- Filter (param: Predicate)
-        List<Person> filteredList1 = persons.stream()
-                .filter(p -> App.getAge(p.getBirthDate()) >= 18 )
-                .collect(Collectors.toList());
+        // List<Person> filteredList1 = persons.stream()
+        //         .filter(p -> App.getAge(p.getBirthDate()) >= 18 )
+        //         .collect(Collectors.toList());
         
         //System.out.println("\nPersonas mayores de 18 años");
         //App.printList(filteredList1);
         // SELECT * FROM PERSONA p WHERE p.edad > 18;
 
         // 2 - Map (param: Function) - Obtengo una Lista de edades, ya no una Lista de Personas
-        List<Integer> filteredList2 =  persons.stream()
-                                        .map(p -> App.getAge(p.getBirthDate()))
+        // List<Integer> filteredList2 =  persons.stream()
+        //                                 .filter(p -> App.getAge(p.getBirthDate()) >= 18 )
+        //                                 .map(p -> App.getAge(p.getBirthDate()))
+        //                                 .collect(Collectors.toList());
+
+        // 2 - Map (param: Function) - Transformar los nombres de las Personas y agregarle la palabra 'coder'
+        // List<String> filteredList2 =  persons.stream()
+        //                                 .map(p -> "Coder " + p.getName())
+        //                                 .collect(Collectors.toList());
+
+        // 2 - Map (param: Function) - Transformar los nombres de las Personas y agregarle la palabra 'coder'
+        // Function<String, String> coderFunction = name -> "Coder " + name;
+        // List<String> filteredList2 =  persons.stream()
+        //                                 .map(p -> p.getName())
+        //                                 .map(coderFunction)
+        //                                 .collect(Collectors.toList());
+
+        // 2 - Map (param: Function) - Transformar los nombres de las Personas y agregarle la palabra 'coder'. Metodos a Referencia
+        Function<String, String> coderFunction = name -> "Coder " + name;
+        List<String> filteredList2 =  persons.stream()
+                                        .map(Person::getName)
+                                        .map(coderFunction)
                                         .collect(Collectors.toList());
         
-        App.printList(filteredList2);
+        //App.printList(filteredList2);
 
+        // 3- Sorted (param: Comparator) Ordenando de manera ascendente por el campo nombre de la lista de Personas
+        Comparator<Person> byNameAsc = (Person o1, Person o2) -> o1.getName().compareTo(o2.getName());
+        List<Person> filteredList3 = persons.stream()
+                                                .sorted(byNameAsc)
+                                                .collect(Collectors.toList());
+        App.printList(filteredList3);
     }
 
     public static int getAge(LocalDate birthDate){
